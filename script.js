@@ -37,8 +37,15 @@ submenu.forEach((menu) =>
   })
 );
 
+const categoryListSetup = (id) => {
+  const contents = document.querySelectorAll('.tabbed .sort-data');
+  contents.forEach((content) => content.classList.remove('active'));
+  document.querySelector(`#${id}`).classList.add('active');
+};
+
 // sorter
 const sorter = document.querySelector('.sort-list');
+let catId = '';
 if (sorter) {
   const sortList = sorter.querySelectorAll('li');
   sorter.querySelector('.opt-trigger').addEventListener('click', () => {
@@ -53,7 +60,9 @@ if (sorter) {
 
       sorter.querySelector('.opt-trigger span.value').textContent =
         e.target.textContent;
+      catId = e.target.dataset.id;
       sorter.querySelector('ul').classList.toggle('show');
+      categoryListSetup(catId);
     })
   );
 }
@@ -100,5 +109,28 @@ const carousel = new Swiper('.carouselbox', {
       slidesPerGroup: 1,
       centeredSlides: false,
     },
+  },
+});
+
+// Product Image > page single
+const thumbImage = new Swiper('.thumbnail-image', {
+  // loop: true,
+  direction: 'vertical',
+  spaceBetween: 15,
+  slidePerView: 1,
+  freeMode: true,
+  watchSlidesProgress: true,
+});
+
+const mainImage = new Swiper('.main-image', {
+  loop: true,
+  autoHeight: true,
+
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true,
+  },
+  thumbs: {
+    swiper: thumbImage,
   },
 });
