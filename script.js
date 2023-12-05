@@ -67,6 +67,22 @@ if (sorter) {
   );
 }
 
+// tabbed
+const triggers = document.querySelectorAll('.tabbed-trigger');
+const contents = document.querySelectorAll('.tabbed > div');
+triggers.forEach((trigger) =>
+  trigger.addEventListener('click', (e) => {
+    // e.preventDefault();
+    let selected = e.target.parentNode;
+    let target = document.querySelector(`#${selected.dataset.id}`);
+    triggers.forEach((trigg) => trigg.parentNode.classList.remove('active'));
+    contents.forEach((content) => content.classList.remove('active'));
+    selected.parentNode.classList.add('active');
+    target.classList.add('active');
+    console.log(target);
+  })
+);
+
 // Slider
 const swiper = new Swiper('.sliderbox', {
   loop: true,
